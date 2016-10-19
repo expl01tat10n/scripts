@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
 
-Author: expl01tat10n
+Author: expl01tation
 License: https://creativecommons.org/licenses/by/4.0/
 Required Dependencies: PowerShell 3.0
 Version: 1.0
@@ -58,3 +58,11 @@ $medium = @($Report | Where-Object{$_.Severity -eq "3"}).Count
 $low = @($Report | Where-Object{$_.Severity -eq "2"}).Count
 $info = @($Report | Where-Object{$_.Severity -eq "1"}).Count
 $TotalStats = @($Report | Where-Object{$_.Severity -eq "5" -or $_.Severity -eq "4" -or $_.Severity -eq "3" -or $_.Severity -eq "2" -or $_.Severity -eq "1"}).Count
+ 
+# Create DataTable & Structure
+$table = New-Object system.Data.DataTable "Vulnerability Breakout"
+$col1 = New-Object system.Data.DataColumn Critical,([string])
+$col2 = New-Object system.Data.DataColumn High,([string])
+$col3 = New-Object system.Data.DataColumn Medium,([string])
+$col4 = New-Object system.Data.DataColumn Low,([string])
+$col5 = New-Object system.Data.DataColumn Informational,([string])
