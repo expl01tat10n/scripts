@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
 
-Author: expl01tation
+Author: expl01tat10n
 License: https://creativecommons.org/licenses/by/4.0/
 Required Dependencies: PowerShell 3.0
 Version: 1.0
