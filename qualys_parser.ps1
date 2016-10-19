@@ -147,3 +147,15 @@ $msg.Subject = $Subject
 $msg.Body = $body
 $smtp = New-Object Net.Mail.SmtpClient("mail")
 $smtp.Send($msg)
+
+# Clean-up and program end success messages
+clear
+Remove-Item .\$target' '_tmp.txt
+Write-Host $target' '_tmp.txt deleted
+Write-Host "Report generated successfully to $out at $date"
+Write-Host "Email sent successfully to $to"
+Write-Host $TotalStats vulnerabilities reported
+Write-Host "Critical: $critical `tHigh: $high `tMedium: $medium `tLow: $low `tInformational: $info"
+Write-Host ""
+Write-Host $vulnlist
+Write-Host $cvelist
