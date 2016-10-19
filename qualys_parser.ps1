@@ -66,3 +66,19 @@ $col2 = New-Object system.Data.DataColumn High,([string])
 $col3 = New-Object system.Data.DataColumn Medium,([string])
 $col4 = New-Object system.Data.DataColumn Low,([string])
 $col5 = New-Object system.Data.DataColumn Informational,([string])
+
+# Add columns to DataTable
+$table.columns.add($col1)
+$table.columns.add($col2)
+$table.columns.add($col3)
+$table.columns.add($col4)
+$table.columns.add($col5)
+
+# Add content to the DataTable
+$row = $table.NewRow()
+$row.Critical = "$critical"
+$row.High = "$high"
+$row.Medium = "$medium"
+$row.Low = "$low"
+$row.Informational = "$info"
+$table.Rows.Add($row)
