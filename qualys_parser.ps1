@@ -127,3 +127,23 @@ $Generate = $Report | Select-Object -property IP, DNS, OS, Title, Severity, 'Ven
 
 # Old Code
 # $Generate = $Report | Select IP, DNS, OS, Title, Severity, 'Vendor Reference', Threat, Impact, Solution, Results | Where {$_.Severity -gt "0"} | Sort-Object Severity -Descending | ConvertTo-HTML -Head $Header -PreContent $Pre -PostContent $Post | Out-File $out
+
+# Mail Magic Happens Here
+$from = "email@address.com"
+$to = "email@address.com"
+# $cc = "email@address.com"
+# $bcc = "email@address.com"
+$Subject = $target Vulnerability Scan Report
+$body = Get-Content .\$target' '_report.html
+$msg = New-Object Net.Mail.MailMessage
+$msg.Priority = [System..Net.Mail.MailPriority]::High
+$msg.From = $from
+$msg.To.Add($to)
+# $msg.CC.Add($cc)
+# $msg.BCC.Add($bcc)
+$msg.IsBodyHTML = $True
+$msg.Subject = $Subject
+# Once HTML is enabled this will turn into msg.Body = $body - otherwise msg.Body = "Body Contents"
+$msg.Body = $body
+$smtp = New-Object Net.Mail.SmtpClient("mail")
+$smtp.Send($msg)
