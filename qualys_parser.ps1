@@ -121,3 +121,9 @@ $cvelist
 $Post = @"
 <i>Generated $date</i>
 "@
+
+# Possible fields to extract are {"IP","DNS","NetBIOS","OS","IP Status","QID","Title","Type","Severity","Port","Protocol", "FQDN","SSL","CVE ID","Vendor Reference","Bugtraq ID","Threat","Impact","Solution", "Exploitability","Associated Malware","Results","PCI Vuln","Instance"}
+$Generate = $Report | Select-Object -property IP, DNS, OS, Title, Severity, 'Vendor Reference', Threat, Impact, Solution, Results | Where {$_.Severity -gt "0"} | Sort-Object -property @{e={$_.IP}; Ascending = $false}, Severity | ConvertTo-HTML -Head $Header -PreContent $Pre -PostContent $Post | Out-File $out
+
+# Old Code
+# $Generate = $Report | Select IP, DNS, OS, Title, Severity, 'Vendor Reference', Threat, Impact, Solution, Results | Where {$_.Severity -gt "0"} | Sort-Object Severity -Descending | ConvertTo-HTML -Head $Header -PreContent $Pre -PostContent $Post | Out-File $out
