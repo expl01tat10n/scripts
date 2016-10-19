@@ -82,3 +82,42 @@ $row.Medium = "$medium"
 $row.Low = "$low"
 $row.Informational = "$info"
 $table.Rows.Add($row)
+
+# Create HTML Version of the DataTable
+$vhtml = 
+"<table><tr><td><b>Critical</b></td><td><b>High</b></td><td><b>Medium</b></td><td><b>Low</b></td><td><b>Informational</b></td></tr>"
+foreach ($row in $table.Rows)
+{
+
+    $vhtml += "<tr align=center><td>" + $row[0] + "</td><td>" + $row[1] + "</td><td>" + $row[2] + "</td><td>" + $row[3] + "</td><td>" + $row[4] + "</td></tr>"
+}
+$varhtml += "</table>"
+$Header = @"
+<style>
+BODY {font-family:"Calibri";font-size:12px}
+TABLE {border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;}
+TH {border-width: 1px;padding: 3px;border-style: solid;border-color: black;background-color: #eeeeee;}
+TD {border-width: 1px;padding: 3px;border-style: solid;border-color: black;}
+.odd { background-color:#ffffff }
+.even { background-color:#aaaaaa; }
+</style>
+<title>
+$target $stype
+</title>
+"@
+$Pre = @"
+<H2>$target $stype</H2>
+<H3>Synthesis</H3>
+$target has $TotalStats vulnerabilities.<br>
+$vhtml
+<br>Legend: 5 = Critical, 4 = High, 3 = Medium, 2 = Low, 1 = Informational<br><br>
+Summary of Unique vulnerabilities<br>
+$vulnlist
+<br><br>
+Discovered Vulnerabilities by CVE<br>
+$cvelist
+<br><br>Please contact <a href="mailto:email@address.com">email@address or Name</a> for any questions on this report or to provide comments/suggestions for improvement.
+"@
+$Post = @"
+<i>Generated $date</i>
+"@
